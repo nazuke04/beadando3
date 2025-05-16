@@ -17,6 +17,7 @@ private:
     int pont_X, pont_O;
     bool vege;
     string eredmeny_szoveg;
+    vector<pair<int,int>> gyoztes_pontok;
 
 public:
     AmobaWidget(int palya_meret, bool gepi_jatekos);

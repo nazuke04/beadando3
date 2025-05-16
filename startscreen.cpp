@@ -5,20 +5,18 @@
 using namespace genv;
 using namespace std;
 
-StartScreen::StartScreen(int w, int h)
-    : width(w), height(h), palya_meret(20), gepi_jatekos(false), start_clicked(false)
+StartScreen::StartScreen()
+    : width(900), height(700), palya_meret(20), gepi_jatekos(false), start_clicked(false)
 {
-    gout.open(width, height);
-
-    slider = new Slider(250, 150, 300, 15, 30, 20, [this](int val) {
+    slider = new Slider(300, 150, 300, 15, 30, 20, [this](int val) {
         palya_meret = val;
     });
 
-    checkbox = new Checkbox(250, 200, "AI player", false, [this](bool val) {
+    checkbox = new Checkbox(300, 200, "Gépi játékos", false, [this](bool val) {
         gepi_jatekos = val;
     });
 
-    start_button = new Button(300, 300, 200, 40, "Start", [this]() {
+    start_button = new Button(370, 320, 160, 40, "Start", [this]() {
         start_clicked = true;
     });
 
@@ -30,6 +28,7 @@ StartScreen::StartScreen(int w, int h)
 void StartScreen::event_loop() {
     while (true) {
         start_clicked = false;
+
         event ev;
         while (gin >> ev && !start_clicked) {
             if (ev.type == ev_mouse || ev.type == ev_key) {
@@ -42,25 +41,25 @@ void StartScreen::event_loop() {
                  << color(240, 240, 240)
                  << box(width, height);
 
-            gout << move_to(320, 50)
+            gout << move_to(350, 80)
                  << color(0, 0, 0)
-                 << text("Tic-tac-toe");
+                 << text("Amõba játék");
 
             for (Widget* w : widgets) {
                 w->draw();
             }
 
-            gout << move_to(250, 120)
+            gout << move_to(300, 120)
                  << color(0, 0, 0)
-                 << text("Choose map size");
+                 << text("Pályaméret választása:");
 
-            gout << move_to(250, 250)
-                 << text("Map size: " + to_string(palya_meret) + "x" + to_string(palya_meret));
+            gout << move_to(360, 250)
+                 << text("Aktuális méret: " + to_string(palya_meret) + "x" + to_string(palya_meret));
 
             gout << refresh;
         }
-        AmobaWidget* jatek = new AmobaWidget(palya_meret, gepi_jatekos);
-        jatek->event_loop();
-        delete jatek;
+
+        AmobaWidget jatek(palya_meret, gepi_jatekos);
+        jatek.event_loop();
     }
 }

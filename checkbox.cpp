@@ -9,19 +9,20 @@ Checkbox::Checkbox(int x, int y, const string& label, bool start_val, function<v
 
 void Checkbox::draw() const {
     gout << move_to(x, y)
-         << color(255, 255, 255)
-         << box(20, 20)
-         << move_to(x, y)
          << color(0, 0, 0)
-         << box(20, 20);
+         << box(20, 20)
+         << move_to(x + 1, y + 1)
+         << color(255, 255, 255)
+         << box(18, 18);
 
     if (checked) {
         gout << move_to(x + 4, y + 4)
-             << color(0, 0, 0)
+             << color(0, 200, 0)
              << box(12, 12);
     }
 
     gout << move_to(x + 30, y + 15)
+         << color(0, 0, 0)
          << text(label);
 }
 

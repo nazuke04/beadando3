@@ -1,8 +1,13 @@
 #include "startscreen.hpp"
+#include "graphics.hpp"
+#include <ctime>
+
+using namespace genv;
 
 int main() {
-    StartScreen* start = new StartScreen(800, 600);
-    start->event_loop();
-    delete start;
+    gout.open(900, 700);
+    srand(time(0));
+    StartScreen start;
+    start.event_loop();
     return 0;
 }

@@ -18,11 +18,11 @@ public:
     JatekMester(int meret, bool gepi);
 
     bool lep(int x, int y);
-    bool van_nyertes(Cell& ki);
+    bool gep_lep();
+    bool van_nyertes(Cell& ki, vector<pair<int,int>>& gyoztes_pontok);
     bool dontetlen();
     const vector<vector<Cell>>& get_tabla() const;
     bool elso_kovetkezik() const;
-    Cell get_aktualis_jel() const;
 };
 
 #endif
