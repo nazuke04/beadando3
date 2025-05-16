@@ -9,13 +9,14 @@ AmobaWidget::AmobaWidget(int meret, bool gepi_jatekos)
       pont_X(0), pont_O(0), vege(false)
 {
     cella_meret = 600 / palya_meret;
-    width = palya_meret * cella_meret + 200;
+    width = palya_meret * cella_meret + 300;
     height = palya_meret * cella_meret + 100;
 }
 
 void AmobaWidget::event_loop() {
     event ev;
     while (gin >> ev) {
+        if (ev.keycode == key_escape) exit(0);
         if (ev.type == ev_mouse && ev.button == btn_left && !vege) {
             int oszlop = ev.pos_x / cella_meret;
             int sor = ev.pos_y / cella_meret;
@@ -95,19 +96,22 @@ void AmobaWidget::rajzol() const {
                      << move_to(px + 5, py + cella_meret - 5)
                      << line(cella_meret - 10, -cella_meret + 10);
             } else if (tabla[y][x] == Cell::O) {
-                int cx = px + cella_meret / 2;
-                int cy = py + cella_meret / 2;
-                int r = cella_meret / 3;
-                for (int dx = -r; dx <= r; ++dx) {
-                    for (int dy = -r; dy <= r; ++dy) {
-                        if (dx*dx + dy*dy <= r*r) {
-                            gout << move_to(cx + dx, cy + dy)
-                                 << color(0, 0, 255)
-                                 << dot;
+                    int cx = px + cella_meret / 2;
+                    int cy = py + cella_meret / 2;
+                    int r = cella_meret / 3;
+                    for (int dx = -r; dx <= r; ++dx) {
+                        for (int dy = -r; dy <= r; ++dy) {
+                            if (dx*dx + dy*dy <= r*r) {
+                                gout << move_to(cx + dx, cy + dy)
+                                << color(0, 0, 200) << dot;
+                                }
+                            if (dx*dx + dy*dy <= (r - 2)*(r - 2)) {
+                                gout << move_to(cx + dx, cy + dy)
+                                << color(200, 200, 200) << dot;
+                                }
+                            }
                         }
                     }
-                }
-            }
         }
     }
 
@@ -122,7 +126,7 @@ void AmobaWidget::rajzol() const {
              << line(0, -cella_meret);
     }
 
-    int infoX = palya_meret * cella_meret + 10;
+    int infoX = palya_meret * cella_meret + 15;
     gout << move_to(infoX, 50) << color(0, 0, 0)
          << text("Kovetkezo: ")
          << text(mester.elso_kovetkezik() ? "X (piros)" : "O (kek)");
@@ -143,13 +147,13 @@ void AmobaWidget::rajzol() const {
         gout << move_to(50, height - 40)
              << color(200, 200, 200)
              << box(150, 30)
-             << move_to(60, height - 20)
+             << move_to(95, height - 20)
              << color(0, 0, 0)
              << text("Uj játék");
 
         gout << move_to(250, height - 40)
              << color(200, 200, 200)
-             << box(200, 30)
+             << box(210, 30)
              << move_to(260, height - 20)
              << color(0, 0, 0)
              << text("Vissza a kezdõképernyõre");

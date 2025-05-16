@@ -2,8 +2,8 @@
 #define AMOBAWIDGET_HPP
 
 #include "jatek_mester.hpp"
-#include "widget.hpp"
 #include <vector>
+#include <string>
 
 using namespace std;
 

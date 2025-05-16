@@ -4,7 +4,6 @@
 #include "graphics.hpp"
 
 using namespace genv;
-using namespace std;
 
 class Widget {
 protected:

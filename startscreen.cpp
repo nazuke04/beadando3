@@ -31,6 +31,7 @@ void StartScreen::event_loop() {
 
         event ev;
         while (gin >> ev && !start_clicked) {
+                if (ev.keycode == key_escape) exit(0);
             if (ev.type == ev_mouse || ev.type == ev_key) {
                 for (Widget* w : widgets) {
                     w->handle(ev);
@@ -41,7 +42,7 @@ void StartScreen::event_loop() {
                  << color(240, 240, 240)
                  << box(width, height);
 
-            gout << move_to(350, 80)
+            gout << move_to(410, 80)
                  << color(0, 0, 0)
                  << text("Amõba játék");
 

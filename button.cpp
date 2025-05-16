@@ -11,7 +11,7 @@ void Button::draw() const {
     gout << move_to(x, y)
          << color(200, 200, 200)
          << box(width, height)
-         << move_to(x + 5, y + height / 2 + 5)
+         << move_to(x + 60, y + height / 2 + 5)
          << color(0, 0, 0)
          << text(label);
 }

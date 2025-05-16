@@ -23,12 +23,25 @@ void Slider::draw() const {
 }
 
 void Slider::handle(event ev) {
-    if (ev.type == ev_mouse && ev.button == btn_left && is_selected(ev.pos_x, ev.pos_y)) {
+    if ((ev.type == ev_mouse && ev.button == btn_left && is_selected(ev.pos_x, ev.pos_y)) ||
+        (ev.type == ev_mouse && ev.button == -btn_left && has_focus())) {
         int rel_x = ev.pos_x - x;
         value = min_val + rel_x * (max_val - min_val) / width;
         if (value < min_val) value = min_val;
         if (value > max_val) value = max_val;
         if (on_change) on_change(value);
+    }
+
+    if (ev.type == ev_key) {
+        if (ev.keycode == key_left) {
+            value--;
+            if (value < min_val) value = min_val;
+            if (on_change) on_change(value);
+        } else if (ev.keycode == key_right) {
+            value++;
+            if (value > max_val) value = max_val;
+            if (on_change) on_change(value);
+        }
     }
 }
 
